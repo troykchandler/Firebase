@@ -4,32 +4,37 @@ body, html,head
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/95/Grand_Central_Station_Main_Concourse_Rectilinear_projection_Jan_2006.jpg");
 
     /* Full height */
-    height: 100%;
-  
+    height: 100% \9;
+    
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
-  .jumbotron{
-      margin-top:25px;
-      background-color: bisque;
-      color:rgb(253, 253, 129);
 
-  }
   .h1{
-    font-family: 'Medula One', cursive;
-    color:rgb(253, 253, 129);
-  }
-  .h2{
-      float: left;
-    font-family: 'Teko', sans-serif;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+      color:rgb(253, 253, 129);
+      font-size: x-large;
+    }
+    .jumbotron{
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+        margin-top:25px;
+        background-color: bisque;
+        color:rgb(253, 253, 129);
+    }
+  .card {
+    font-family: 'Cinzel', serif;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     color: rgb(253, 253, 129);
-    
   }
-
-  .h3{
-      float: right;
-    font-family: 'Teko', sans-serif;
-    color: rgb(253, 253, 129);
+  #your-train{
+    background-color: grey;
   }
+  
+  

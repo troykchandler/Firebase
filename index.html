@@ -9,50 +9,168 @@
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-        <link href="https://fonts.googleapis.com/css?family=Medula+One" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>"
+
+    <!-- <link type="text/javascript" href=".\Firebase\firebase.js"> -->
 </head>
 
 <body>
     <div id="intro" class="view light">
-        <div class="full-bg-img">
-        
-        <div class="container">
-                    <div class="jumbotron jumbotron-fluid" style="background-color:black; text-align: center">
-                            <div class="container">
-                              <h1 class="h1">Train Station </h1>
-                              <br>
-                              <h2 class="h2" style= "font-size:48px;">Departures</h2>
-                              <h3 class="h3" style="font-size:48px;">Arrivals</h3>
-                            </div>
-                          </div>
-            </div>
-        </div>
-        <div class="card"style="width: 25rem;background-color:black">
-            <div class= "Card-header">
-                <h1 class="h1"> Departures </h1>
-                <div class="card- body">
-                <table>
+        <div class="img-fluid.width: 100% \9;">
 
-                </table>
-                </div>
-            </div>
-        </div>
-        <div class="card" style="background-color:black">
-                <div class= "Card-header">
-                    <h1 class="h1"> Arrivals  </h1>
-                    <div class="card- body">
-                    <table>
-                        
-                    </table>
+            <div class="container">
+                <div class="jumbotron jumbotron-fluid>" style="background-color:black">
+                        <h1 class="h1"> Passanger Train Schedule </h1>
+                        <br>
+                        <table class="table table-hover table-responsive" id='train-Info'>
+                            <thead>
+                                <tr>
+                                    <th>Passanger Trains</th>
+                                    <th>|</th>
+                                    <th>Destination</th>
+                                    <th>|</th>
+                                    <th>Frequency (min)</th>
+                                    <th>|</th>
+                                    <th>Arrival Time</th>
+                                    <th>|</th>
+                                    <th>Departures</th>
+                                    <th>|</th>
+                                    <th>Minutes Away</th>
+                                    <th>|</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color:rgb(94, 255, 220);">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src=".\assets\javascript\game.js"></script>
+            <div= container>
+                <div class="card card-fluid col-6" style="background-color:black">
+                    <h1 class="h1"> Add Your Train </h1>
+                    <form id="yourTrain">
+                        <div class="forms">
+                            <label for=""> Your Train</label>
+                            <input type="text" class="form-control" id="your-train"
+                                style="background-color:rgb(83, 80, 80); color:rgb(94, 255, 220)">
+                        </div>
+                        <div class="forms">
+                            <label for="destination-input"> Destination</label>
+                            <input type="text" class="form-control" id="destination"
+                                style="background-color:rgb(83, 80, 80); color:rgb(94, 255, 220)">
+                        </div>
+                        <div class="forms">
+                            <label for="arrival-time"> Arrival Time </label>
+                            <input type="time" class="form-control" id="arrival"
+                                style="background-color:rgb(83, 80, 80); color:rgb(94, 255, 220)">
+                        </div>
+                        <div class="forms">
+                            <label for="train-frequency"> Frequency </label>
+                            <input type="number" class="form-control" id="intervals"
+                                style="background-color:rgb(83, 80, 80); color:rgb(94, 255, 220)">
+                        </div>
+                        <br>
+                        <button type="submit" id="arrival-button"
+                            style="float: right;background-color: grey">Submit</button>
+                    </form>
+                </div>
+        </div>
+    </div>
+    </div>
 
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+        var config = {
+            apiKey: "AIzaSyDn1PWgYz0-sR7BU3Kc-sR2p8pzl8RnYTs",
+            authDomain: "train-project-3cd6a.firebaseapp.com",
+            databaseURL: "https://train-project-3cd6a.firebaseio.com",
+            projectId: "train-project-3cd6a",
+            storageBucket: "train-project-3cd6a.appspot.com",
+            messagingSenderId: "596874459970"
+        };
+        firebase.initializeApp(config);
+
+        var traindb = firebase.database();
+
+        $("#arrival-button").on("click", function (event) {
+
+            event.preventDefault();
+
+            let name = $("#your-train").val().trim();
+            let destination = $("#destination").val().trim();
+            let arrivalTime = $("#arrival").val().trim();
+            let frequency = $("#intervals").val().trim();
+
+
+            let passengerTrain = {
+                name: name,
+                destination: destination,
+                arrivalTime: arrivalTime,
+                frequency: frequency
+            };
+
+            traindb.ref().push(passengerTrain);
+
+            console.log(newTrain.name);
+            console.log(newTrain.destination);
+            console.log(newTrain.firstTrain);
+            console.log(newTrain.frequency);
+
+            //Clearing Form hopefully
+            $("#name, #destination, #arrivalTime, #frequency").val("");
+            return false;
+
+        });
+
+    </script>
+    <!--Moment JS script-->
+
+    <script>
+
+        traindb.ref().on("child_added", function (childSnapshot) {
+
+            var newTrain = childSnapshot.val().name;
+            var newLocation = childSnapshot.val().destination;
+            var newFirstTrain = childSnapshot.val().arrivalTime;
+            var newFreq = childSnapshot.val().frequency;
+
+            var startTimeConverted = moment(newFirstTrain, "hh:mm").subtract(1, "years");
+
+            var currentTime = moment();
+
+            var diffTime = moment().diff(moment(startTimeConverted), "minutes");
+
+            var tRemainder = diffTime % newFreq;
+
+            var tMinutesTillTrain = newFreq - tRemainder;
+
+            // Next Train
+            var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+            var catchTrain = moment(nextTrain).format("HH:mm");
+
+            // What should display on the page....
+            $("#train-Info > tbody").append(
+                $("<tr>").append(
+                    $("<td>").text(newTrain),
+                    $("<td>").text(""),
+                    $("<td>").text(newLocation),
+                    $("<td>").text(""),
+                    $("<td>").text(newFreq),
+                    $("<td>").text(""),
+                    $("<td>").text(catchTrain),
+                    $("<td>").text(""),
+                    $("<td>").text(tMinutesTillTrain)
+                )
+            );
+        });
+    </script>
 
 </body>
+
 
 </HTML>
